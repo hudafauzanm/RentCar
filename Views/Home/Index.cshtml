@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutHome";
+}
+
+<div class="hero-wrap" style="background-image: url('/Home/images/1569853.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="overlay-2"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text justify-content-center align-items-center">
+            <div class="col-lg-8 col-md-6 ftco-animate d-flex align-items-end">
+                <div class="text text-center w-100">
+                    <h1 class="mb-4" style="color:aliceblue">Find Car <br>That You Want To Ride</h1>
+                    <p><a href="#" class="btn btn-primary py-3 px-4">Search Properties</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mouse">
+        <a href="#" class="mouse-icon">
+            <div class="mouse-wheel"><span class="ion-ios-arrow-round-down"></span></div>
+        </a>
+    </div>
+</div>
+
+
+<section class="ftco-section ftco-no-pb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="search-wrap-1 ftco-animate">
+                    <form action="#" class="search-property-1">
+                        <div class="row">
+                            <div class="col-lg align-items-end">
+                                <div class="form-group">
+                                    <label for="#">Location</label>
+                                    <div class="form-field">
+                                        <div class="icon"><span class="ion-ios-search"></span></div>
+                                        <input type="text" class="form-control" name="Search" placeholder="Bebas">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg align-self-end">
+                                <div class="form-group">
+                                    <div class="form-field">
+                                        <input type="submit" value="Search Property" class="form-control btn btn-primary" onclick="javascript: search_btn(this)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg align-items-end">
+                                <div class="form-group">
+                                    <label for="#">Property Type</label>
+                                    <div class="form-field">
+                                        <div class="select-wrap">
+                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                            <select name="Sort" id="Sort" class="form-control">
+                                                <option value="1">Type</option>
+                                                <option value="2">Commercial</option>
+                                                <option value="3">- Office</option>
+                                                <option value="4">Residential</option>                                               
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg align-self-end">
+                                <div class="form-group">
+                                    <div class="form-field">
+                                        <input type="submit" value="Search Property" class="form-control btn btn-primary" onclick="javascript: sort_btn(this)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section goto-here">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                <span class="subheading">What we offer</span>
+                <h2 class="mb-2">Exclusive Offer For You</h2>
+            </div>
+        </div>
+        <div class="row">
+            @{
+                @foreach (var x in ViewBag.Car)
+                {
+                    <div class="col-md-4">
+                        <div class="property-wrap ftco-animate">
+                            <div class="img d-flex align-items-center justify-content-center" style="background-image: url(@x.front_image);">
+                                @if (ViewBag.User == "")
+                                {
+                                   
+                                }
+                                @if (ViewBag.User != null)
+                                {
+                                    <a href="https://localhost:5001/OrderCar/Index/@x.id" class="icon d-flex align-items-center justify-content-center btn-custom">
+                                        <span class="ion-ios-link"></span>
+                                    </a>
+                                }
+
+                                <div class="list-agent d-flex align-items-center">
+                                    <a href="#" class="agent-info d-flex align-items-center">
+                                        <div class="img-2 rounded-circle" style="background-image: url(/Home/images/person_1.jpg);"></div>
+                                        <h3 class="mb-0 ml-2">@x.owner</h3>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="text">
+                                <p class="price mb-3"><span class="orig-price">@x.priceperday</span>/day</p>
+                                <h3 class="mb-0"><a href="properties-single.html">@x.brand</a>/@x.type</h3>
+                                <span class="location d-inline-block mb-3"><i class="ion-ios-arrow-round-forward mr-2"></i>@x.description</span>                  
+                            </div>
+                        </div>
+                    </div>
+                }
+            }            
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    function sort_btn()
+    {
+        var search = '@ViewBag.Search';
+        var sort = document.getElementById('Sort').value;
+        var path = '/Home/Index?Sort='+sort+'&Search='+search+'&PerPage='+page;
+        window.location.href = path;
+    }
+    function search_btn()
+    {
+        var sort = '@ViewBag.Sort';
+        var search = document.getElementById('Search').value;
+        var path = '/Home/Index?Search='+search+'&Sort='+sort+'&PerPage='+page;
+        window.location.href = path;
+    }
+</script>

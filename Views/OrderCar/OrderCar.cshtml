@@ -1,0 +1,190 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutLogin";
+}
+<style>
+    .mySlides {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-6">
+        <h4>Detail Barang</h4>
+        @{
+            @foreach (var y in ViewBag.Detail)
+            {
+                <div class="w3-content w3-display-container">
+                    <img class="mySlides" src="/@y.front_image" width="500" height="350">
+                    <img class="mySlides" src="/@y.back_image" width="500" height="350">
+                    <img class="mySlides" src="/@y.top_image" width="500" height="350">
+                    <img class="mySlides" src="/@y.left_image" width="500" height="350">
+                    <img class="mySlides" src="/@y.right_image" width="500" height="350">
+
+                    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                    <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+                </div>
+            }
+        }
+        <form asp-action="Create" asp-controller="Car" method="post" id="editForm" name="edit" role="form" enctype="multipart/form-data">
+            <div class="modal-body">
+                @{
+                    @foreach (var x in ViewBag.Detail)
+                    {
+                        <div class="form-group">
+                            <label for="name">Brand</label>
+                            <input type="text" id="itemnama" name="Brand" class="form-control" disabled value="@x.brand">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Type</label>
+                            <input type="text" id="itemharga" name="Type" class="form-control" disabled value="@x.type">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Production Year</label>
+                            <input type="text" id="itemharga" name="Production" class="form-control" disabled value="@x.production_year">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Count Of Seat</label>
+                            <input type="text" id="itemharga" name="CountSeat" class="form-control" disabled value="@x.seat">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Price Per Day</label>
+                            <input type="text" id="price_id" name="Price" class="form-control" value="@x.priceperday" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Transmision</label>
+                            <select name="Transmision" class="form-control" id="itemrating" disabled>
+                                <option>@x.transmision</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">A/C</label>
+                            <select name="AC" class="form-control" id="itemrating" disabled>
+                                <option>@x.ac</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Fuel</label>
+                            <select name="Fuel" class="form-control" id="itemrating" disabled>
+                                <option>@x.fuel</option>
+                            </select>
+                        </div>
+                    }
+                }
+
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-6">
+        <h4>Form Pemesanan</h4>
+        <form asp-action="Payment" asp-controller="OrderCar" method="post" id="editForm" name="edit" role="form" enctype="multipart/form-data">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="name">Fullname</label>
+                    <input type="text" id="itemnama" name="Fullname" class="form-control">
+                </div>
+
+                @{
+                    @foreach (var y in ViewBag.Detail)
+                    {
+                        <input type="text" id="itemharga" name="Cars_id" class="form-control" value="@y.id" hidden />
+                    }
+                }
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="itemharga" name="Email" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Location</label>
+                    <input type="text" id="itemharga" name="Location" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Mulai</label>
+                    <input type="date" id="mulai" name="Mulai" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Selesai</label>
+                    <input type="date" id="selesai" name="Selesai" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="rating">Driver</label>
+                    <select name="Driver" class="form-control" id="driver">
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-radio">
+                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input">
+                        <label class="custom-control-label" for="credit">Credit card</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" value="bank_transfer">
+                        <label class="custom-control-label" for="debit">Bank Transfer</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" value="gopay">
+                        <label class="custom-control-label" for="paypal">GoPay</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Bank</label>
+                    <select name="bank_type" id="Sort">
+                        <option value="bca">BCA</option>
+                        <option value="bni">BNI</option>
+                        <option value="permata">Permata</option>
+                        <option value="echannel">Mandiri</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">Total</label>
+                    <input type="text" id="total_id" name="Total_Price" class="form-control" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="javascript: total()">Hitung</button>
+                    <input type="submit" class="btn btn-success" id="Bayar">
+                </div>
+            </div>
+</form>
+    </div>
+</div>
+    
+<script type="text/javascript">
+    var slideIndex = 1;
+    showDivs(slideIndex);
+    function plusDivs(n) {
+   
+      showDivs(slideIndex += n);
+    }
+    function showDivs(n) {
+      var i;
+      var x = document.getElementsByClassName("mySlides");
+      if (n > x.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = x.length}
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";  
+      }
+      x[slideIndex-1].style.display = "block";  
+    }
+</script>
+<script type="text/javascript">
+    function total()
+    {
+        if (document.getElementById("driver").value == 1) {
+            var pertotal = document.getElementById("price_id").value;
+            var start = new Date(document.getElementById("mulai").value);
+            var end = new Date(document.getElementById("selesai").value);
+            var selisih = parseInt((end - start) / (24 * 3600 * 1000))
+            var total = pertotal * selisih + 200000;
+        }
+        else
+        {
+            var pertotal = document.getElementById("price_id").value;
+            var start = new Date(document.getElementById("mulai").value);
+            var end = new Date(document.getElementById("selesai").value);
+            var selisih = parseInt((end - start) / (24 * 3600 * 1000))
+            var total = pertotal * selisih;
+        }
+        document.getElementById("total_id").value = total;
+    }
+</script>

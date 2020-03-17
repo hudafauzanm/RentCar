@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutLogin";
+}
+   
+<div class="form-group">
+    <div class="form-field">
+        <form asp-action="AddCar" asp-controller="Car">
+            <input type="submit" value="Add Car" class="form-control btn btn-primary">
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Owner</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Type</th>
+            <th scope="col">Status</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{ 
+            @foreach(var c in ViewBag.Car)
+            {
+        <tr>
+            <th>@c.owner</th>
+            <td>@c.brand</td>
+            <td>@c.type</td>
+            <td>@c.status</td>
+            <td>
+                <button class="btn btn-danger"><i class="icon-delete"></i></button>
+                <button class="btn btn-secondary"><i class="icon-account_circle"></i></button>
+            </td>
+        </tr>
+            }
+        }
+        
+    </tbody>
+</table>

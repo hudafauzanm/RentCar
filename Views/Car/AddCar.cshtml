@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutLogin";
+}
+<div class="row">
+    <div class="col-lg-3">
+
+    </div>
+    <div class="col-lg-6">
+        <form asp-action="Create" asp-controller="Car" method="post" id="editForm" name="edit" role="form" enctype="multipart/form-data">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="rating">Owner</label>
+                    <select name="Owner" class="form-control" id="itemrating">
+                        @{
+                            @foreach (var x in ViewBag.User)
+                            {
+                                <option>@x.username</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name">Brand</label>
+                    <input type="text" id="itemnama" name="Brand" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">Type</label>
+                    <input type="text" id="itemharga" name="Type" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">Production Year</label>
+                    <input type="text" id="itemharga" name="Production" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">Count Of Seat</label>
+                    <input type="text" id="itemharga" name="CountSeat" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">Price Per Day</label>
+                    <input type="text" id="itemharga" name="Price" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="rating">Transmision</label>
+                    <select name="Transmision" class="form-control" id="itemrating">
+                        <option>Auto</option>
+                        <option>Manual</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rating">A/C</label>
+                    <select name="AC" class="form-control" id="itemrating">
+                        <option>A</option>
+                        <option>C</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Fuel</label>
+                    <select name="Fuel" class="form-control" id="itemrating">
+                        <option>Solar</option>
+                        <option>Premium</option>
+                        <option>Pertamax</option>
+                        <option>Battery</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Baggage</label>
+                    <select name="Baggage" class="form-control" id="itemrating">
+                        <option>Large</option>
+                        <option>Small</option>
+                        <option>Not Available</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">Front Car</label>
+                    <input type="file" name="FrontCar" class="form-control" id="itemurl" accept="image/jpg, image/jpeg, image/png">
+                </div>
+                <div class="form-group">
+                    <label for="email">Back Car</label>
+                    <input type="file" name="BackCar" class="form-control" id="itemurl" accept="image/jpg, image/jpeg, image/png">
+                </div>
+                <div class="form-group">
+                    <label for="email">Top Car</label>
+                    <input type="file" name="TopCar" class="form-control" id="itemurl" accept="image/jpg, image/jpeg, image/png">
+                </div>
+                <div class="form-group">
+                    <label for="email">Left Side Car</label>
+                    <input type="file" name="LeftCar" class="form-control" id="itemurl" accept="image/jpg, image/jpeg, image/png">
+                </div>
+                <div class="form-group">
+                    <label for="email">Right Side Car</label>
+                    <input type="file" name="RightCar" class="form-control" id="itemurl" accept="image/jpg, image/jpeg, image/png">
+                </div>
+                <div class="form-group">
+                    <label for="message">Car Description</label>
+                    <textarea name="Deskripsi" class="form-control" id="itemdesc"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-success" id="submit">
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-3">
+
+    </div>
+
+</div>
