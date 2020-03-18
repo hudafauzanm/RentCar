@@ -25,7 +25,7 @@ namespace RentCar.Controllers
             Configuration = configuration;
         }
         // GET: OrderCar
-        [Authorize]
+        
         public ActionResult Index(string id)
         {
             var x = from car in AppDbContext.Cars where car.id == Guid.Parse(id) select car;

@@ -91,6 +91,7 @@ namespace RentCar
             app.Use(async (context, next) =>
             {
                 var JWToken = context.Session.GetString("JWTToken");
+                Console.WriteLine(JWToken);
 
                 if (!string.IsNullOrEmpty(JWToken))
                 {

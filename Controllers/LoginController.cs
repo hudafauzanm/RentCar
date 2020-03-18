@@ -97,8 +97,8 @@ namespace RentCar.Controllers
                         HttpContext.Session.SetString("Id", user.id.ToString());
                         HttpContext.Session.SetString("Status", user.status.ToString());
                         HttpContext.Session.SetString("Name", user.username.ToString());
-
-                        var get = HttpContext.Session.GetString("JWTToken");                       
+                        var get = HttpContext.Session.GetString("JWTToken");
+                        Console.WriteLine(get);
                         return RedirectToAction("Index", "Home");
 
                     }

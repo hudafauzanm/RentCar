@@ -23,7 +23,7 @@ namespace RentCar.Controllers
             Configuration = configuration;
         }
         // GET: Car
-        [Authorize]
+        
         public ActionResult Index()
         {
             List<IQueryable> cars_id = new List<IQueryable>();
@@ -61,7 +61,7 @@ namespace RentCar.Controllers
         }
 
         // GET: Car
-        [Authorize]
+       
         public ActionResult AddCar()
         {
             var user = from x in AppDbContext.Users where x.status == 2 select x;
@@ -164,14 +164,14 @@ namespace RentCar.Controllers
             var cars = AppDbContext.Cars.Find(editid);
             cars.status = "Free";
             AppDbContext.SaveChanges();            
-            return View("Car");
+            return RedirectToAction("Index","Car");
         }
         public ActionResult Delete(string id)
         {
             var editid = Guid.Parse(id);
             var cars = AppDbContext.Cars.Find(editid);
             AppDbContext.Remove(cars);
-            return View("Car");
+            return RedirectToAction("Index", "Car");
         }
 
         // POST: Car/Edit/5
@@ -189,12 +189,6 @@ namespace RentCar.Controllers
             {
                 return View();
             }
-        }
-
-        // GET: Car/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: Car/Delete/5
