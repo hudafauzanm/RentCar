@@ -23,7 +23,7 @@ namespace RentCar.Controllers
             AppDbContext = appDbContext;
             Configuration = configuration;
         }
-        [Authorize]
+        
         public IActionResult Index(int Sort, string Search = "")
         {
             List<string> search = new List<string>();
