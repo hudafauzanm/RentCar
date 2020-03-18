@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,7 @@ namespace RentCar.Controllers
             Configuration = configuration;
         }
         // GET: Car
+        [Authorize]
         public ActionResult Index()
         {
             List<IQueryable> cars_id = new List<IQueryable>();
@@ -59,6 +61,7 @@ namespace RentCar.Controllers
         }
 
         // GET: Car
+        [Authorize]
         public ActionResult AddCar()
         {
             var user = from x in AppDbContext.Users where x.status == 2 select x;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +25,7 @@ namespace RentCar.Controllers
             Configuration = configuration;
         }
         // GET: OrderCar
+        [Authorize]
         public ActionResult Index(string id)
         {
             var x = from car in AppDbContext.Cars where car.id == Guid.Parse(id) select car;

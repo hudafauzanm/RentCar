@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +23,7 @@ namespace RentCar.Controllers
             AppDbContext = appDbContext;
             Configuration = configuration;
         }
-
+        [Authorize]
         public IActionResult Index(int Sort, string Search = "")
         {
             List<string> search = new List<string>();
