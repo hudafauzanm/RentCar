@@ -35,6 +35,11 @@ namespace RentCar.Controllers
         {
             return View();
         }
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Login");
+        }
 
         // GET: Login/Create
         public ActionResult Create()
@@ -81,21 +86,19 @@ namespace RentCar.Controllers
             try
             {
                 IActionResult response = Unauthorized();
-                Console.WriteLine(Email);
                 var user = AuthenticatedUser(Email, Password);
                 if (user != null)
                 {
+                    Console.WriteLine(user.status);
                     if (user.status == 1)
                     {
-                        Console.WriteLine("masuk sini");
-                        Console.WriteLine(user);
-                        var token = GenerateJwtToken(user);
-                        Console.WriteLine(token);
+                        var token = GenerateJwtToken(user);                       
                         HttpContext.Session.SetString("JWTToken", token);
                         HttpContext.Session.SetString("Id", user.id.ToString());
-                        var get = HttpContext.Session.GetString("JWTToken");
-                        Console.WriteLine(get);
-                        Console.WriteLine("masuk sini lagi");
+                        HttpContext.Session.SetString("Status", user.status.ToString());
+                        HttpContext.Session.SetString("Name", user.username.ToString());
+
+                        var get = HttpContext.Session.GetString("JWTToken");                       
                         return RedirectToAction("Index", "Home");
 
                     }
@@ -104,6 +107,20 @@ namespace RentCar.Controllers
                         var token = GenerateJwtToken(user);
                         HttpContext.Session.SetString("JWTToken", token);
                         HttpContext.Session.SetString("Id", user.id.ToString());
+                        HttpContext.Session.SetString("Status", user.status.ToString());
+                        HttpContext.Session.SetString("Name", user.username.ToString());
+
+                        var get = HttpContext.Session.GetString("JWTToken");
+                        return RedirectToAction("Index", "Car");
+                    }
+                    if (user.status == 3)
+                    {
+                        var token = GenerateJwtToken(user);
+                        HttpContext.Session.SetString("JWTToken", token);
+                        HttpContext.Session.SetString("Id", user.id.ToString());
+                        HttpContext.Session.SetString("Status", user.status.ToString());
+                        HttpContext.Session.SetString("Name", user.username.ToString());
+
                         var get = HttpContext.Session.GetString("JWTToken");
                         return RedirectToAction("Index", "Home");
                     }
@@ -171,12 +188,11 @@ namespace RentCar.Controllers
             var verify = BCrypt.Net.BCrypt.Verify(Password, x.password);
             if (x.email == Email && (verify == true))
             {
-                Console.WriteLine("masuk sini salah");
-                Console.WriteLine(x.email);
                 user = new User
                 {
                     id = x.id,
                     status = x.status,
+                    username = x.username,
                     email = Email,
                     password = x.password,
                 };

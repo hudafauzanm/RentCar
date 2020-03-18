@@ -24,8 +24,37 @@ namespace RentCar.Controllers
         // GET: Car
         public ActionResult Index()
         {
+            List<IQueryable> cars_id = new List<IQueryable>();
+            List<CarInfo> cars = new List<CarInfo>();
             var car = from x in AppDbContext.Cars select x;
-            ViewBag.Car = car;
+            foreach(var x in car)
+            {
+                CarInfo carinfo = new CarInfo()
+                {
+                    Id = Convert.ToString(x.id),
+                    Brand = x.brand,
+                    Type = x.type,
+                    Status = x.status,
+                    Owner = x.owner,
+                };
+                cars.Add(carinfo);
+            }
+            var trans = from x in AppDbContext.Transactions select x;
+            foreach(var x in trans)
+            {
+                var carinfo = (from y in cars where y.Id == Convert.ToString(x.cars_id) orderby y.Id select y).LastOrDefault();
+                if(x.returned_at.Date > DateTime.Today.Date)
+                {
+                    carinfo.Used_at = x.used_at;
+                    carinfo.Returned_at = x.returned_at;
+                }
+                else
+                {
+                    carinfo.Used_at = DateTime.Parse("0001-01-01 00:00:00.0000000");
+                    carinfo.Returned_at = DateTime.Parse("0001-01-01 00:00:00.0000000");
+                }
+            }
+            ViewBag.Car = cars;
             return View("Car");
         }
 
@@ -126,9 +155,20 @@ namespace RentCar.Controllers
         }
 
         // GET: Car/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var editid = Guid.Parse(id);
+            var cars = AppDbContext.Cars.Find(editid);
+            cars.status = "Free";
+            AppDbContext.SaveChanges();            
+            return View("Car");
+        }
+        public ActionResult Delete(string id)
+        {
+            var editid = Guid.Parse(id);
+            var cars = AppDbContext.Cars.Find(editid);
+            AppDbContext.Remove(cars);
+            return View("Car");
         }
 
         // POST: Car/Edit/5
@@ -173,10 +213,13 @@ namespace RentCar.Controllers
 
         public class CarInfo
         {
+            public string Id { get; set; }
             public string Owner { get; set; }
             public string Brand { get; set; }
             public string Type { get; set; }
             public string Status { get; set; }
+            public DateTime Used_at { get; set; }
+            public DateTime Returned_at { get; set; }
         }
     }
 }

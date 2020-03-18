@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    Layout = "_LayoutLogin";
+    Layout = "_Layout";
 }
    
 <div class="form-group">
@@ -17,7 +17,8 @@
             <th scope="col">Brand</th>
             <th scope="col">Type</th>
             <th scope="col">Status</th>
-            <th></th>
+            <th scope="col">Used</th>
+            <th scope="col">Return</th>
 
         </tr>
     </thead>
@@ -26,17 +27,43 @@
             @foreach(var c in ViewBag.Car)
             {
         <tr>
-            <th>@c.owner</th>
-            <td>@c.brand</td>
-            <td>@c.type</td>
-            <td>@c.status</td>
+            <th>@c.Owner</th>
+            <td>@c.Brand</td>
+            <td>@c.Type</td>
+            <td>@c.Status</td>
+            @if (@c.Used_at == DateTime.Parse("0001-01-01 00:00:00.0000000") || c.Returned_at == DateTime.Parse("0001-01-01 00:00:00.0000000"))
+            {
+                <td>Free/Return</td>
+                <td>Free/Return</td>
+            }
+            @if (c.Used_at != DateTime.Parse("0001-01-01 00:00:00.0000000"))
+            {
+                <td>@c.Used_at.ToString("dd-MMMM-yyyy")</td>
+                <td>@c.Returned_at.ToString("dd-MMMM-yyyy")</td>
+            }
             <td>
-                <button class="btn btn-danger"><i class="icon-delete"></i></button>
-                <button class="btn btn-secondary"><i class="icon-account_circle"></i></button>
+                <button id="del-@c.Id" class="btn btn-danger" onclick="javascript: delete_id(this)">D</button>
+                <button id="upt-@c.Id" class="btn btn-secondary" onclick="javascript: update(this)">U</button>
             </td>
         </tr>
             }
-        }
-        
+        }        
     </tbody>
 </table>
+<script type="text/javascript">
+    function update(id)
+    {
+        var car_id = id.id;
+        var car = car_id.substring(4);
+        var path = "https://localhost:5001/Car/Edit/" + car;
+        window.location.href = path;
+    }
+</script>
+<script type="text/javascript">
+    function delete_id(id) {
+        var car_id = id.id;
+        var car = car_id.substring(4);
+        var path = "https://localhost:5001/Car/Delete/" + car;
+        window.location.href = path;
+    }
+</script>

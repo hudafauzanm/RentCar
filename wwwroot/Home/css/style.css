@@ -2410,8 +2410,8 @@ fieldset:disabled a.btn {
   color: #f8f9fa;
   border-color: #f8f9fa; }
   .btn-outline-light:hover {
-    color: #212529;
-    background-color: #f8f9fa;
+    color: white;
+    background-color: darkred;
     border-color: #f8f9fa; }
   .btn-outline-light:focus, .btn-outline-light.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
@@ -8147,7 +8147,7 @@ h1, h2, h3, h4, h5,
         padding-right: 0 !important;
         padding-bottom: 0 !important; } }
     .ftco-navbar-light.scrolled .nav-item.active > a {
-      color: #d4ca68 !important; }
+      color: darkred !important; }
     .ftco-navbar-light.scrolled .nav-item.cta > a {
       color: #fff !important;
       background: #d4ca68;
@@ -8602,7 +8602,7 @@ h1, h2, h3, h4, h5,
     .search-property-1 .form-group .form-control.btn {
       padding: 22px 10px !important;
       font-size: 20px;
-      background: #d4ca68 !important;
+      background: darkred !important;
       border: none !important;
       color: #fff !important; }
   .search-property-1 .form-group .select-wrap {
@@ -8638,7 +8638,7 @@ h1, h2, h3, h4, h5,
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: #d4ca68;
+      background: darkred;
       color: #fff;
       font-size: 20px;
       opacity: 0;

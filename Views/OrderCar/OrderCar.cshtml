@@ -175,6 +175,9 @@
             var start = new Date(document.getElementById("mulai").value);
             var end = new Date(document.getElementById("selesai").value);
             var selisih = parseInt((end - start) / (24 * 3600 * 1000))
+            if (selisih == 0) {
+                selisih = 1;
+            }
             var total = pertotal * selisih + 200000;
         }
         else
@@ -183,6 +186,9 @@
             var start = new Date(document.getElementById("mulai").value);
             var end = new Date(document.getElementById("selesai").value);
             var selisih = parseInt((end - start) / (24 * 3600 * 1000))
+            if (selisih == 0) {
+                selisih = 1;
+            }
             var total = pertotal * selisih;
         }
         document.getElementById("total_id").value = total;
